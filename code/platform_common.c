@@ -23,15 +23,6 @@ struct
     Button buttons[BUTTON_COUNT];
 } typedef Input;
 
-struct
-{
-    int type;
-    int texture;
-    b32 exists;
-    f32 x, y, z;
-    int size;
-}typedef sprite; sprite sp[420]; 
-
 #define Pressed(b) (input->buttons[b].isDown && input->buttons[b].changed)
 #define Released(b) (!input->buttons[b].isDown && input->buttons[b].changed)
 #define IsDown(b) (input->buttons[b].isDown)
