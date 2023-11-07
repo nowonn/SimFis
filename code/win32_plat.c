@@ -12,10 +12,13 @@ struct {
 } typedef RenderBuffer;
 
 global_variable RenderBuffer renderBuffer;
+Objeto tersio;
+Mola mola;
 
 #define fps 60
 #define frameDelay (1000 / fps)
 #include "software_rendering.c"
+#include "simulation.c"
 
 internal LRESULT CALLBACK windowCallback(HWND window, UINT message, WPARAM wParam, LPARAM lParam){
     LRESULT result = 0;
@@ -74,6 +77,21 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
     
     f32 lastDt = 0.01666f;
     
+    tersio.position[0] = 200;
+    tersio.position[1] = 280;
+    tersio.speed[0] = 0;
+    tersio.speed[1] = 0;
+    tersio.acceleration[0] = 50;
+    tersio.acceleration[1] = 0;
+    tersio.width = 50;
+    tersio.height = 50;
+    tersio.color = 0xe6b720;
+    tersio.mass = 1;
+    
+    mola.kel = 5;
+    mola.deformation = 200;
+    mola.x0 = tersio.position[0] + mola.deformation;
+    
     while (running){ //Main Loop!
         //Input
         for (int i = 0; i < BUTTON_COUNT; i++) input.buttons[i].changed = false;
@@ -111,8 +129,7 @@ input.buttons[b].isDown = isDown;\
         }
         
         //Simulation
-        ClearScreen(0x00ff00);
-        DrawRectInPixels(20, 20, 20, 20, 0x0000ff);
+        Tudo(lastDt);
         
         //Render
         StretchDIBits(hdc, 0, 0, renderBuffer.width, renderBuffer.height, 0, 0, renderBuffer.width, renderBuffer.height, renderBuffer.pixels, &renderBuffer.bitmapInfo, DIB_RGB_COLORS, SRCCOPY);

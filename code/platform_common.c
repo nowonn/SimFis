@@ -23,6 +23,22 @@ struct
     Button buttons[BUTTON_COUNT];
 } typedef Input;
 
+typedef struct {
+    float position[2];
+    float speed[2];
+    float acceleration[2];
+    float mass;
+    float width;
+    float height;
+    u32 color;
+} Objeto;
+
+typedef struct {
+    float kel;
+    float deformation;
+    float x0;
+} Mola;
+
 #define Pressed(b) (input->buttons[b].isDown && input->buttons[b].changed)
 #define Released(b) (!input->buttons[b].isDown && input->buttons[b].changed)
 #define IsDown(b) (input->buttons[b].isDown)
