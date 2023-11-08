@@ -91,6 +91,8 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
     mola.kel = 5;
     mola.deformation = 200;
     mola.x0 = tersio.position[0] + mola.deformation;
+    mola.startX = 20;
+    mola.segments = 30;
     
     while (running){ //Main Loop!
         //Input

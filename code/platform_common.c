@@ -37,6 +37,8 @@ typedef struct {
     float kel;
     float deformation;
     float x0;
+    int segments;
+    float startX;
 } Mola;
 
 #define Pressed(b) (input->buttons[b].isDown && input->buttons[b].changed)
