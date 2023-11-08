@@ -17,7 +17,6 @@ void DrawRectInPixels(int x0, int y0, int width, int height, u32 color){
         }
     }
 }
-
 void DrawLineInPixels(int x0, int y0, int x1, int y1, int width, u32 color){
     y0 += 39; //39 is an offset that I don't know why it exists
     y1 += 39; //Assuming the offset is required for y1 as well
@@ -28,9 +27,14 @@ void DrawLineInPixels(int x0, int y0, int x1, int y1, int width, u32 color){
     
     while(1){
         for(int i = 0; i < width; i++){
-            for(int j = 0; j < width; j++){
-                if(x0+i < renderBuffer.width && y0+j < renderBuffer.height){
-                    u32 *pixel = renderBuffer.pixels + (x0+i) + renderBuffer.width*(y0+j);
+            if(dx > dy){
+                if(y0+i < renderBuffer.height){
+                    u32 *pixel = renderBuffer.pixels + x0 + renderBuffer.width*(y0+i);
+                    *pixel = color;
+                }
+            } else {
+                if(x0+i < renderBuffer.width){
+                    u32 *pixel = renderBuffer.pixels + (x0+i) + renderBuffer.width*y0;
                     *pixel = color;
                 }
             }
@@ -41,4 +45,10 @@ void DrawLineInPixels(int x0, int y0, int x1, int y1, int width, u32 color){
         if (e2 > -dx) { err -= dy; x0 += sx; }
         if (e2 < dy) { err += dx; y0 += sy; }
     }
+}
+
+void DrawPixel(int x, int y, u32 color){
+    y += 40; //39 is an offset that exists for some reason
+    u32 *pixel = renderBuffer.pixels + x + renderBuffer.width*y;
+    *pixel = color;
 }

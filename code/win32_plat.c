@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include <stdio.h>
 #include <math.h>
 #include <windows.h>
 #include "utils.c"
@@ -14,6 +15,7 @@ struct {
 global_variable RenderBuffer renderBuffer;
 Objeto tersio;
 Mola mola;
+float xAccelerationMemory[600], xSpeedMemory[600], xPositionMemory[600];
 
 #define fps 60
 #define frameDelay (1000 / fps)
@@ -77,22 +79,30 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
     
     f32 lastDt = 0.01666f;
     
-    tersio.position[0] = 200;
+    tersio.position[0] = 200;//M
+    tersio.mass = 1;//M
+    mola.kel = 5;//M
+    
+    mola.segments = 20;//limite de 50!! M
+    
     tersio.position[1] = 280;
     tersio.speed[0] = 0;
     tersio.speed[1] = 0;
-    tersio.acceleration[0] = 50;
+    tersio.acceleration[0] = 0;
     tersio.acceleration[1] = 0;
     tersio.width = 50;
     tersio.height = 50;
     tersio.color = 0xe6b720;
-    tersio.mass = 1;
     
-    mola.kel = 5;
-    mola.deformation = 200;
-    mola.x0 = tersio.position[0] + mola.deformation;
+    mola.x0 = 400;
+    mola.deformation = mola.x0 - tersio.position[0]; 
     mola.startX = 20;
-    mola.segments = 30;
+    
+    for(int i = 0; i < 600; i++){
+        xAccelerationMemory[i] = 0;
+        xSpeedMemory[i] = 0;
+        xPositionMemory[i] = 0;
+    }
     
     while (running){ //Main Loop!
         //Input
