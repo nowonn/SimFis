@@ -5,6 +5,7 @@
 #include "utils.c"
 #include "math.c"
 #include "platform_common.c"
+#include "fontmap.c"
 
 struct {
     int width, height;
@@ -13,14 +14,18 @@ struct {
 } typedef RenderBuffer;
 
 global_variable RenderBuffer renderBuffer;
-Objeto tersio;
-Mola mola;
-float xAccelerationMemory[600], xSpeedMemory[600], xPositionMemory[600];
+global_variable enum State state = SPRING;
+global_variable bool paused = false;
+global_variable bool graphMode = false;
+global_variable Object tersio;
+global_variable Mola mola;
+global_variable float xAccelerationMemory[600], xSpeedMemory[600], xPositionMemory[600];
+
+#include "software_rendering.c"
+#include "simulation.c"
 
 #define fps 60
 #define frameDelay (1000 / fps)
-#include "software_rendering.c"
-#include "simulation.c"
 
 internal LRESULT CALLBACK windowCallback(HWND window, UINT message, WPARAM wParam, LPARAM lParam){
     LRESULT result = 0;
@@ -30,7 +35,7 @@ internal LRESULT CALLBACK windowCallback(HWND window, UINT message, WPARAM wPara
         case WM_DESTROY: {
             running = false;
         } break;
-        case WM_SIZE:{ //Called when window is created
+        case WM_SIZE:{ //Called when window is created or resized
             RECT rect;
             GetWindowRect(window, &rect);
             renderBuffer.width = rect.right - rect.left;
@@ -63,7 +68,7 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
     
     RegisterClassA(&windowClass);
     
-    HWND window = CreateWindowExA(0, "Simulator_Window_Class", "Simulador", WS_VISIBLE|WS_SYSMENU, CW_USEDEFAULT, CW_USEDEFAULT, 960, 640, 0, 0, 0, 0);
+    HWND window = CreateWindowExA(0, "Simulator_Window_Class", "Simulador", WS_VISIBLE|WS_SYSMENU, CW_USEDEFAULT, CW_USEDEFAULT, 960 + 16, 640 + 39, 0, 0, 0, 0);
     
     HDC hdc = GetDC(window);
     
@@ -128,8 +133,8 @@ input.buttons[b].isDown = isDown;\
                     ProcessButton(VK_RIGHT, BUTTON_RIGHT);
                     ProcessButton(VK_UP, BUTTON_UP);
                     ProcessButton(VK_DOWN, BUTTON_DOWN);
-                    ProcessButton(0x5A, BUTTON_INTERACT);
-                    ProcessButton(0x58, BUTTON_SPRINT);
+                    ProcessButton(0x47, BUTTON_GRAPH);
+                    ProcessButton(0x20, BUTTON_PAUSE);
                     ProcessButton(0x1B, BUTTON_ESCAPE);
                     
                 } break;
@@ -141,7 +146,7 @@ input.buttons[b].isDown = isDown;\
         }
         
         //Simulation
-        Tudo(lastDt);
+        Tudo(&input, lastDt);
         
         //Render
         StretchDIBits(hdc, 0, 0, renderBuffer.width, renderBuffer.height, 0, 0, renderBuffer.width, renderBuffer.height, renderBuffer.pixels, &renderBuffer.bitmapInfo, DIB_RGB_COLORS, SRCCOPY);

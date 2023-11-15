@@ -10,18 +10,18 @@ enum
     BUTTON_RIGHT,
     BUTTON_UP,
     BUTTON_DOWN,
-    BUTTON_INTERACT,
+    BUTTON_GRAPH,
     BUTTON_ESCAPE,
-    BUTTON_SPRINT,
+    BUTTON_PAUSE,
     BUTTON_COUNT,
 };
 
-struct
+typedef struct
 {
     int mouseX;
     int mouseY;
     Button buttons[BUTTON_COUNT];
-} typedef Input;
+} Input;
 
 typedef struct {
     float position[2];
@@ -31,7 +31,7 @@ typedef struct {
     float width;
     float height;
     u32 color;
-} Objeto;
+} Object;
 
 typedef struct {
     float kel;
@@ -40,6 +40,10 @@ typedef struct {
     int segments;
     float startX;
 } Mola;
+
+enum State {
+    SPRING
+};
 
 #define Pressed(b) (input->buttons[b].isDown && input->buttons[b].changed)
 #define Released(b) (!input->buttons[b].isDown && input->buttons[b].changed)

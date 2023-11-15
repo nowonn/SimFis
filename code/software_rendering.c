@@ -17,6 +17,7 @@ void DrawRectInPixels(int x0, int y0, int width, int height, u32 color){
         }
     }
 }
+
 void DrawLineInPixels(int x0, int y0, int x1, int y1, int width, u32 color){
     y0 += 39; //39 is an offset that I don't know why it exists
     y1 += 39; //Assuming the offset is required for y1 as well
@@ -47,8 +48,34 @@ void DrawLineInPixels(int x0, int y0, int x1, int y1, int width, u32 color){
     }
 }
 
+void DrawHollowRectInPixels(int x0, int y0, int width, int height, int lineWidth, u32 color){
+    DrawLineInPixels(x0, y0, x0 + width, y0, lineWidth, color);
+    DrawLineInPixels(x0 + width, y0, x0 + width, y0 + height, lineWidth, color);
+    DrawLineInPixels(x0 + width, y0 + height, x0, y0 + height, lineWidth, color);
+    DrawLineInPixels(x0, y0 + height, x0, y0, lineWidth, color);
+}
+
 void DrawPixel(int x, int y, u32 color){
     y += 40; //39 is an offset that exists for some reason
     u32 *pixel = renderBuffer.pixels + x + renderBuffer.width*y;
     *pixel = color;
+}
+
+void DrawChar(int x0, int y0, char c, int size, u32 color){
+    if(c == ' ') return;
+    
+    int index = c - (c > 96) * 97 - !(c > 96) * 22;
+    
+    for(int j = 0; j < 12; j++){
+        for(int i = 0; i < 7; i++){
+            if(fontmap[77 - (7 * j) + i + 84 * index])
+                DrawRectInPixels(x0 + i * size, y0 + j * size, size, size, color);
+        }
+    }
+}
+
+void DrawString(int x0, int y0, char s[137], int size, u32 color){
+    for(int i = 0; i < 136 && s[i] != '\0'; i++){
+        DrawChar(x0 + 7 * size * i, y0, s[i], size, color);
+    }
 }
