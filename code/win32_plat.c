@@ -24,7 +24,7 @@ global_variable float xAccelerationMemory[600], xSpeedMemory[600], xPositionMemo
 #include "software_rendering.c"
 #include "simulation.c"
 
-#define fps 60
+#define fps 200
 #define frameDelay (1000 / fps)
 
 internal LRESULT CALLBACK windowCallback(HWND window, UINT message, WPARAM wParam, LPARAM lParam){
