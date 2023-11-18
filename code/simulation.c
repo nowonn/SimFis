@@ -42,24 +42,46 @@ void Tudo(Input *input, f32 dt){
         mola.deformation = mola.x0 - tersio.position[0];
         tersio.acceleration[0] = mola.deformation * mola.kel / tersio.mass;
     } else {
+        if(Pressed(BUTTON_SHIFT)) targetValue++;
+        if(targetValue > MASS) targetValue = POS;
         int direction = IsDown(BUTTON_LEFT) * (-1) + IsDown(BUTTON_RIGHT);
-        tersio.position[0] += direction * 5; 
-        if(tersio.position[0] >= 960 - tersio.width) {
-            tersio.position[0] = 960 - tersio.width;
-            tersio.velocity[0] = 0;
-            tersio.acceleration[0] = 0;
-        }
-        if(tersio.position[0] <= 20) {
-            tersio.position[0] = 20;
-            tersio.velocity[0] = 0;
-            tersio.acceleration[0] = 0;
-        }
-        
-        for(int i = 0; i < 2; i++){ 
-            if(direction){
-                tersio.velocity[i] = 0;
-                tersio.acceleration[i] = 0;
+        switch(targetValue){
+            case POS:
+            tersio.position[0] += direction * 5; 
+            if(tersio.position[0] >= 960 - tersio.width) {
+                tersio.position[0] = 960 - tersio.width;
+                tersio.velocity[0] = 0;
+                tersio.acceleration[0] = 0;
             }
+            if(tersio.position[0] <= 20) {
+                tersio.position[0] = 20;
+                tersio.velocity[0] = 0;
+                tersio.acceleration[0] = 0;
+            }
+            
+            for(int i = 0; i < 2; i++){ 
+                if(direction){
+                    tersio.velocity[i] = 0;
+                    tersio.acceleration[i] = 0;
+                }
+            }
+            DrawString(350, 400, "changing position", 2, 0xff0000);
+            break;
+            case KEL:
+            direction = Pressed(BUTTON_LEFT) * (-1) + Pressed(BUTTON_RIGHT);
+            mola.kel += direction;
+            if(mola.kel < 1) mola.kel = 1;
+            if(mola.kel > 9) mola.kel = 9;
+            DrawString(350, 400, "k equals  npm", 2, 0xff0000);
+            DrawChar(474, 400, '0' + mola.kel, 2, 0xff0000);
+            break;
+            default:
+            direction = Pressed(BUTTON_LEFT) * (-1) + Pressed(BUTTON_RIGHT);
+            tersio.mass += direction;
+            if(tersio.mass < 1) tersio.mass = 1;
+            if(tersio.mass > 9) tersio.mass = 9;
+            DrawString(350, 400, "mass equals  kg", 2, 0xff0000);
+            DrawChar(516, 400, '0' + tersio.mass, 2, 0xff0000);
         }
     }
     
