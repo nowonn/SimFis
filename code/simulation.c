@@ -119,18 +119,18 @@ void Tudo(Input *input, f32 dt){
             
             switch(graphType){
                 case ACCELERATION:
-                DrawPixel(909-i, 130 + xAccelerationMemory[i] * 0.03, 0xff0000);
+                DrawRectInPixels(909-i, 130 + xAccelerationMemory[i] * 0.03, 2, 2, 0xff0000);
                 break;
                 case VELOCITY:
-                DrawPixel(909-i, 130 + xSpeedMemory[i] * 0.03, 0xff0000);
+                DrawRectInPixels(909-i, 130 + xSpeedMemory[i] * 0.03, 2, 2, 0xff0000);
                 break;
                 case POSITION:
-                DrawPixel(909-i, 30 + xPositionMemory[i] * 0.25, 0xff0000);
+                DrawRectInPixels(909-i, 30 + xPositionMemory[i] * 0.25, 2, 2, 0xff0000);
                 break;
                 default:
-                DrawPixel(909-i, 200 + xAccelerationMemory[i] * 0.01, 0xff0000);
-                DrawPixel(909-i, 130 + xSpeedMemory[i] * 0.01, 0xff0000);
-                DrawPixel(909-i, 30 + xPositionMemory[i] * 0.1, 0xff0000);
+                DrawRectInPixels(909-i, 200 + xAccelerationMemory[i] * 0.01, 2, 2, 0xff0000);
+                DrawRectInPixels(909-i, 130 + xSpeedMemory[i] * 0.01, 2, 2, 0xff0000);
+                DrawRectInPixels(909-i, 30 + xPositionMemory[i] * 0.1, 2, 2, 0xff0000);
             }
         }
         
@@ -178,6 +178,7 @@ void Tudo(Input *input, f32 dt){
                 xAccelerationMemory[0] = tersio.acceleration[0];
                 xSpeedMemory[0] = tersio.velocity[0];
                 xPositionMemory[0] = tersio.position[0] - 20;//-20 pra colocar origem na parede
+                continue;
             } else if(!paused){
                 xAccelerationMemory[i] = xAccelerationMemory[i - 1];
                 xSpeedMemory[i] = xSpeedMemory[i - 1];
@@ -186,18 +187,18 @@ void Tudo(Input *input, f32 dt){
             
             switch(graphType){
                 case ACCELERATION:
-                DrawPixel(911-i, 320 + xAccelerationMemory[i] * 0.1, 0xff0000);
+                DrawRectInPixels(911-i, 320 + xAccelerationMemory[i] * 0.1, 2, 2, 0xff0000);
                 break;
                 case VELOCITY:
-                DrawPixel(911-i, 320 + xSpeedMemory[i] * 0.1, 0xff0000);
+                DrawRectInPixels(911-i, 320 + xSpeedMemory[i] * 0.1, 2, 2, 0xff0000);
                 break;
                 case POSITION:
-                DrawPixel(911-i, 70 + xPositionMemory[i] * 0.5, 0xff0000);
+                DrawRectInPixels(911-i, 70 + xPositionMemory[i] * 0.5, 2, 2, 0xff0000);
                 break;
                 default:
-                DrawPixel(911-i, 494 + xAccelerationMemory[i] * 0.03, 0xff0000);
-                DrawPixel(911-i, 350 + xSpeedMemory[i] * 0.03, 0xff0000);
-                DrawPixel(911-i, 42 + xPositionMemory[i] * 0.3, 0xff0000);
+                DrawRectInPixels(911-i, 494+xAccelerationMemory[i]*0.03, 2, 2, 0xff0000);
+                DrawRectInPixels(911-i, 350+xSpeedMemory[i]*0.03, 2, 2, 0xff0000);
+                DrawRectInPixels(911-i, 42+xPositionMemory[i]*0.3, 2, 2, 0xff0000);
             }
         }
         
