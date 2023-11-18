@@ -14,7 +14,7 @@ struct {
 } typedef RenderBuffer;
 
 global_variable RenderBuffer renderBuffer;
-global_variable enum State state = SPRING;
+global_variable enum GraphType graphType = ALL;
 global_variable bool paused = false;
 global_variable bool graphMode = false;
 global_variable Object tersio;
@@ -84,22 +84,22 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
     
     f32 lastDt = 0.01666f;
     
-    tersio.position[0] = 200;//M
+    tersio.position[0] = 20;//M
     tersio.mass = 1;//M
     mola.kel = 5;//M
     
     mola.segments = 20;//limite de 50!! M
     
     tersio.position[1] = 280;
-    tersio.speed[0] = 0;
-    tersio.speed[1] = 0;
+    tersio.velocity[0] = 0;
+    tersio.velocity[1] = 0;
     tersio.acceleration[0] = 0;
     tersio.acceleration[1] = 0;
     tersio.width = 50;
     tersio.height = 50;
     tersio.color = 0xe6b720;
     
-    mola.x0 = 400;
+    mola.x0 = 420;
     mola.deformation = mola.x0 - tersio.position[0]; 
     mola.startX = 20;
     

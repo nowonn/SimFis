@@ -25,7 +25,7 @@ typedef struct
 
 typedef struct {
     float position[2];
-    float speed[2];
+    float velocity[2];
     float acceleration[2];
     float mass;
     float width;
@@ -41,8 +41,8 @@ typedef struct {
     float startX;
 } Mola;
 
-enum State {
-    SPRING
+enum GraphType {
+    ACCELERATION, VELOCITY, POSITION, ALL
 };
 
 #define Pressed(b) (input->buttons[b].isDown && input->buttons[b].changed)

@@ -79,3 +79,41 @@ void DrawString(int x0, int y0, char s[137], int size, u32 color){
         DrawChar(x0 + 7 * size * i, y0, s[i], size, color);
     }
 }
+
+void DrawSpring(){
+    float xs[50];
+    xs[0] = mola.startX;
+    for(int i = 1; i < mola.segments + 1; i++){
+        xs[i] = xs[0] + i * (tersio.position[0] - xs[0])/mola.segments;
+        DrawLineInPixels(xs[i - 1], tersio.position[1] + tersio.height / 2 - 20,
+                         (xs[i] + xs[i - 1])/2, tersio.position[1] + tersio.height / 2 + 20,
+                         2, 0x444444);
+        DrawLineInPixels((xs[i] + xs[i - 1])/2, tersio.position[1] + tersio.height / 2 + 20,
+                         xs[i], tersio.position[1] + tersio.height / 2 - 20,
+                         2, 0x222222);
+    }
+}
+
+void DrawGraphMeasurements(int x0, int y0, int x1, int y1, int originX, int originY, int fontSize, float scale, int step, char unit[5], u32 color){
+    int pixelStep = step * 100 * scale;
+    for(int i = (x0 - originX) / pixelStep; i < (x1 - originX) / pixelStep + 1; i++){
+        DrawLineInPixels(originX + pixelStep * i, y0,
+                         originX + pixelStep * i, y1, 1, color);
+        //DrawChar(originX + pixelStep * i + 3, originY - 12, '0' + i, 1, 0x00ff00);
+        //DrawChar(originX + pixelStep * i + 10, originY - 12, 's', 1, 0x00ff00);
+    }
+    for(int i = (y0 - originY) / pixelStep; i < (y1 - originY) / pixelStep + 1; i++){
+        DrawLineInPixels(x0, originY + pixelStep * i, x1, originY + pixelStep * i, fontSize, color);
+        if(i < 0) DrawChar(originX + 3 + (i * step > -10) * 7, originY + pixelStep * i  + 3, '0' + 10, fontSize, 0x00ff00);
+        if(i * i * step * step > 81) {
+            DrawChar(originX + 3 + fontSize * 7, originY + pixelStep * i + 3, '0' + ((i - (i < 0) * 2 * i) * step) / 10, fontSize, 0x00ff00);
+            DrawChar(originX + 3 + fontSize * 14, originY + pixelStep * i + 3, '0' + ((i - (i < 0) * 2 * i) * step) % 10, fontSize, 0x00ff00);
+        } else{
+            DrawChar(originX + 3 + fontSize * 14, originY + pixelStep * i + 3, '0' + ((i - (i < 0) * 2 * i) * step), fontSize, 0x00ff00);
+        }
+        DrawString(originX + 3 + fontSize * 21, originY + pixelStep * i + 3, unit, fontSize, 0x00ff00);
+    }
+    
+    DrawLineInPixels(x0, originY, x1, originY, 2, color);
+    DrawLineInPixels(originX, y0, originX, y1, 2, color);
+}
