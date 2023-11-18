@@ -15,6 +15,7 @@ struct {
 
 global_variable RenderBuffer renderBuffer;
 global_variable enum GraphType graphType = ALL;
+global_variable enum TargetValue targetValue = POS;
 global_variable bool paused = false;
 global_variable bool graphMode = false;
 global_variable Object tersio;
@@ -24,7 +25,7 @@ global_variable float xAccelerationMemory[600], xSpeedMemory[600], xPositionMemo
 #include "software_rendering.c"
 #include "simulation.c"
 
-#define fps 200
+#define fps 60
 #define frameDelay (1000 / fps)
 
 internal LRESULT CALLBACK windowCallback(HWND window, UINT message, WPARAM wParam, LPARAM lParam){
@@ -136,6 +137,7 @@ input.buttons[b].isDown = isDown;\
                     ProcessButton(0x47, BUTTON_GRAPH);
                     ProcessButton(0x20, BUTTON_PAUSE);
                     ProcessButton(0x1B, BUTTON_ESCAPE);
+                    ProcessButton(0x53, BUTTON_SHIFT);
                     
                 } break;
                 default: {

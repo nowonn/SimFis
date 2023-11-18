@@ -13,6 +13,7 @@ enum
     BUTTON_GRAPH,
     BUTTON_ESCAPE,
     BUTTON_PAUSE,
+    BUTTON_SHIFT,
     BUTTON_COUNT,
 };
 
@@ -43,6 +44,10 @@ typedef struct {
 
 enum GraphType {
     ACCELERATION, VELOCITY, POSITION, ALL
+};
+
+enum TargetValue {
+    POS, KEL, MASS
 };
 
 #define Pressed(b) (input->buttons[b].isDown && input->buttons[b].changed)
