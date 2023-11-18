@@ -12,6 +12,8 @@ Nós fizemos um programa em C do zero que simula o comportamento de um corpo qua
 
 **Tecla G** - Troca entre o modo gráfico grande ou pequeno.
 
+**Tecla S** - Quando pausado, troca qual dado será modificado com as setinhas.
+
 **Setinhas para a esquerda e direita** - Quando pausado, essas teclas podem ser usadas para mudar informações iniciais do corpo ou da mola.
 
 **Setinhas para cima e para baixo** - Trocam qual dado é representado no gráfico.
