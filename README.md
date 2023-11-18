@@ -1,4 +1,4 @@
-# Simulação física pra faculdade
+# Simulação física para a faculdade
 
 É um trabalho em grupo de física geral 1 pra faculdade UFSCar Sorocaba :)
 
