@@ -9,6 +9,19 @@ void Tudo(Input *input, f32 dt){
     
     ClearScreen(0x778fbf);
     
+    DrawRectInPixels(65, 550, 80, 80, 0xffed2b);
+    
+    DrawRectInPixels(50, 520, 150, 48, 0xffffff);
+    DrawRectInPixels(120, 550, 110, 48, 0xffffff);
+    DrawRectInPixels(160, 510, 160, 60, 0xffffff);
+    
+    DrawRectInPixels(450, 460, 150, 48, 0xffffff);
+    DrawRectInPixels(520, 490, 110, 48, 0xffffff);
+    DrawRectInPixels(560, 450, 160, 60, 0xffffff);
+    
+    DrawRectInPixels(850, 490, 110, 48, 0xffffff);
+    DrawRectInPixels(920, 520, 40, 48, 0xffffff);
+    
     if(!paused){
         for(int i = 0; i < 2; i++){ 
             tersio.velocity[i] += tersio.acceleration[i] * dt;
@@ -55,9 +68,14 @@ void Tudo(Input *input, f32 dt){
     DrawRectInPixels(tersio.position[0], tersio.position[1], tersio.width, tersio.height, tersio.color);//tersio
     DrawLineInPixels(mola.x0, tersio.position[1] - tersio.height/2,
                      mola.x0, tersio.position[1] + tersio.height*1.5,
-                     1, 0xff0000);//linha do x0 da mola
-    DrawRectInPixels(0, 270, mola.startX, 331, 0x361b03);//parede
+                     1, 0x000000);//linha do x0 da mola
+    DrawString(mola.x0 - 28, tersio.position[1] + tersio.height*1.5 + 2, "spring x0", 1, 0x000000);
+    DrawRectInPixels(0, 270, mola.startX, 370, 0x111111);//parede
     DrawRectInPixels(0, 0, 960, 280, 0x111111);//chao
+    
+    DrawString(818, 620, "all rights reserved", 1, 0xffffff);
+    DrawString(818, 608, " to ti, gi and ana", 1, 0xffffff);
+    DrawString(818, 596, "bcc ufscar sorocaba", 1, 0xffffff);
     
     if(!graphMode){
         switch(graphType){
@@ -83,9 +101,9 @@ void Tudo(Input *input, f32 dt){
             DrawLineInPixels(310, 200, 910, 200, 1, 0x555555);
             DrawLineInPixels(310, 130, 910, 130, 1, 0x555555);
             DrawLineInPixels(310, 30, 910, 30, 1, 0x555555);
-            DrawString(140, 193, "acceleration", 2, 0x00ff00);
-            DrawString(196, 123, "velocity", 2, 0x00ff00);
-            DrawString(196, 53, "position", 2, 0x00ff00);
+            DrawString(138, 193, "acceleration", 2, 0x00ff00);
+            DrawString(194, 123, "velocity", 2, 0x00ff00);
+            DrawString(194, 53, "position", 2, 0x00ff00);
         }
         
         for(int i = 599; i >= 0; i--){

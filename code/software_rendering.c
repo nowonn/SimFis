@@ -65,6 +65,8 @@ void DrawChar(int x0, int y0, char c, int size, u32 color){
     if(c == ' ') return;
     
     int index = c - (c > 96) * 97 - !(c > 96) * 22;
+    if(c == ',') index = 37;
+    else if(c == '.') index = 38;
     
     for(int j = 0; j < 12; j++){
         for(int i = 0; i < 7; i++){
