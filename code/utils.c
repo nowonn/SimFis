@@ -16,6 +16,3 @@ typedef bool b32;
 #define internal static;
 
 global_variable b32 running = true;
-global_variable b32 gameState = false;
-global_variable b32 gameFinish = false;
-global_variable b32 mainMenuState = true;
